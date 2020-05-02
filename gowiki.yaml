@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gowiki-deployment
+  labels:
+    app: gowiki-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: gowiki
+  template:
+    metadata:
+      labels:
+        app: gowiki
+    spec:
+      containers:
+      - name: nginx
+        image: chienyuan/gowiki:latest
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gowiki
+spec:
+  ports:
+  - name: http
+    port: 80
+    targetPort: 8080
+  selector:
+    app: gowiki
+  type: LoadBalancer
+
+
