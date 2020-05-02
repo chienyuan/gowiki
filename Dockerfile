@@ -9,6 +9,6 @@ RUN  CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -tags netgo -ldflags '-w 
 FROM scratch
 COPY --from=builder /build/gowiki /app/
 COPY --from=builder /build/*.html /app/
-EXPOsE 8080
+EXPOSE 8080
 WORKDIR /app
 CMD ["./gowiki"]
